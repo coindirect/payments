@@ -14,7 +14,7 @@ const App = () => {
     console.log('paymentStatus')
   }
   return <React.Fragment>
-    <Payout
+    {/* <Payout
       confirmPayoutSuccess={handleConfirmPayout}
       confirmPayoutFailure={handleConfirmPayout}
     />
@@ -25,7 +25,7 @@ const App = () => {
     <Address paymentStatus={paymentStatus} />
     <PaymentInProgess paymentStatus={paymentStatus} />
     <PayinComplete paymentStatus={paymentStatus} />
-    <PayoutComplete />
+    <PayoutComplete /> */}
   </React.Fragment>
 }
 
