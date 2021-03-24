@@ -9,25 +9,30 @@ class PayOutComplete extends Component {
   constructor(props) {
     super();
     this.state = {
-      confirmPayoutData:{},
-      payoutCurrencyData:[],
+      confirmPayoutData: {},
+      payoutCurrencyData: [],
       isError: false,
+      isLoading: true
     }
   }
-  
+
   componentDidMount() {
     let data = {}
     data.successUrl = "no_url";
     var uuid = sessionStorage.getItem('uuid');
     Api.getCurrencies()
-    .then((response) => {
+      .then((response) => {
         this.setState({
-            payoutCurrencyData: response.data,
+          payoutCurrencyData: response.data,
+          isLoading: false
         })
-    })
-    .catch((error) => {
-      console.log('error', error)
-    })
+      })
+      .catch((error) => {
+        console.log('error', error)
+        this.setState({
+          isLoading: false
+        })
+      })
     this.getStatus(uuid)
   }
 
@@ -36,6 +41,7 @@ class PayOutComplete extends Component {
       .then((response) => {
         this.setState({
           confirmPayoutData: response.data,
+          isLoading: false
         })
       })
       .catch((error) => {
@@ -44,25 +50,27 @@ class PayOutComplete extends Component {
   }
 
   render() {
-    const { isError, payoutCurrencyData, confirmPayoutData} = this.state;
+    const { isError, payoutCurrencyData, confirmPayoutData, isLoading } = this.state;
     const { t } = this.props;
 
     let result;
 
-    if(confirmPayoutData?.quote){
-      result = payoutCurrencyData?.filter(val => val.code === confirmPayoutData?.quote?.to );
+    if (confirmPayoutData?.quote) {
+      result = payoutCurrencyData?.filter(val => val.code === confirmPayoutData?.quote?.to);
     }
 
     return (
       <div className="payment-container">
-          <React.Fragment>
+        {isLoading
+          ? <Loader />
+          : <React.Fragment>
             <h1 className="page-heading" >
               {t("Payout Complete")}
             </h1>
             <p className="success-quote" >
               <b>{t("Success!")} </b>
-             {result?.length > 0 && result.map((val)=> t(`You have been paid out in `) + val.name )}
-           </p>
+              {result?.length > 0 && result.map((val) => t(`You have been paid out in `) + val.name)}
+            </p>
             <div>
               <div className="payout-of-wrapper">
                 <p className="payout">
@@ -70,8 +78,8 @@ class PayOutComplete extends Component {
                 </p>
                 <p className="amount">
                   <strong>
-                  {confirmPayoutData.quote && confirmPayoutData.quote.amountOut || 0} 
-                  {confirmPayoutData.quote && confirmPayoutData.quote.to}
+                    {confirmPayoutData.quote && confirmPayoutData.quote.amountOut || 0}
+                    {confirmPayoutData.quote && confirmPayoutData.quote.to}
                   </strong>
                 </p>
               </div>
@@ -87,15 +95,15 @@ class PayOutComplete extends Component {
                 </p>
                 <p>
                   <strong>
-                  {`${confirmPayoutData && confirmPayoutData.quote && confirmPayoutData.quote.amountInGross || 0} ${confirmPayoutData.quote && confirmPayoutData.quote.from || ''}`}
+                    {`${confirmPayoutData && confirmPayoutData.quote && confirmPayoutData.quote.amountInGross || 0} ${confirmPayoutData.quote && confirmPayoutData.quote.from || ''}`}
                   </strong>
                 </p>
               </div>
               <div className="go-to-wallet-wrapper">
                 <a href='https://www.sandbox.coindirect.com/wallets/btc'>
-                   <span>
-                     <strong>{t("Go To Wallet")}</strong>
-                    </span>
+                  <span>
+                    <strong>{t("Go To Wallet")}</strong>
+                  </span>
                 </a>
               </div>
             </div>
@@ -103,6 +111,7 @@ class PayOutComplete extends Component {
               <div className="retrieve-rates-text">{t("Something went wrong")}</div>
             </div>
           </React.Fragment>
+        }
       </div>
     )
   }

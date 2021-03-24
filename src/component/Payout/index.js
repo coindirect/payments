@@ -29,25 +29,42 @@ class PayOut extends Component {
 			isNextDisabled: true,
 			isOverlay: false
 		}
-		let uuid = new URLSearchParams(window.location.search).get("uuid");
-		sessionStorage.setItem('uuid', uuid ? uuid : sessionStorage.getItem('uuid'));
-		this.setInterval = {};
-		
+		this.uuid = new URLSearchParams(window.location.search).get("uuid");
+		sessionStorage.setItem('uuid', this.uuid ? this.uuid : sessionStorage.getItem('uuid'));
 	}
 
 	componentDidMount() {
-		this.updateCurrency("BTC", "Bitcoin");
 		Api.getCurrencies()
 			.then((response) => {
 				this.setState({
 					payoutCurrency: response.data,
+					isLoading: false
 				})
+				this.getStatus(this.uuid)
 			})
 			.catch((error) => {
-				console.log('error', error)
+				console.log('error', error);
+				this.setState({
+					isLoading: false
+				})
 			})
-
 	}
+
+
+	getStatus = (uuid) => {
+        Api.status(uuid)
+            .then((status) => {
+				this.setState({
+					selectedCurrency: this.state.payoutCurrency?.filter(item => item?.code === status?.data?.quote?.from)[0].name,
+                    selectedCurrencyCode: status?.data?.quote?.from,
+                }, () => {
+                    this.updateCurrency(this.state.selectedCurrencyCode, this.state.selectedCurrency)
+                })
+            })
+            .catch((error) => {
+                console.log('error', error)
+            })
+    }
 
 	setDropdown = () => {
 		this.setState({
@@ -112,7 +129,6 @@ class PayOut extends Component {
 									error.response.data.errorList && error.response.data.errorList.length &&
 									error.response.data.errorList[0].message : this.props.t('Something went wrong'))
 					})
-					reject();
 				})
 		});
 	}
@@ -131,15 +147,11 @@ class PayOut extends Component {
 				this.props.confirmPayoutFailure()
 				this.setState({
 					errorMsg: this.props.t('Something went wrong'),
-					popUpError: error && error.response.status === 500 ? true : false,
+					popUpError: true,
 					isNextDisabled: false,
 					isOverlay: false
 				})
 			})
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.setInterval)
 	}
 
 	handleAddress = (event) => {

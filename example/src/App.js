@@ -1,32 +1,69 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import { Payout, Payin, Address, PaymentInProgess, PayinComplete, PayoutComplete } from 'coindirect-package'
-import 'coindirect-package/src/App.css'
+import 'coindirect-package/src/App.css';
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
+import { withRouter } from 'react-router';
 
-const App = () => {
+class App extends Component {
 
 
-  const handleConfirmPayout = () => {
-    console.log('Handle')
+  handleConfirmPayout = () => {
+    this.props.history.push('confirm')
   }
 
-  const paymentStatus = () => {
-    console.log('paymentStatus')
+  paymentStatus = (status) => {
+    if(status === 'PROCESSING' && !window.location.pathname.includes('seen')){
+      this.props.history.push('seen');
+    }
+    else if( status === 'COMPLETE' && !window.location.pathname.includes('done')){
+      this.props.history.push('done');
+    }
   }
-  return <React.Fragment>
-    {/* <Payout
-      confirmPayoutSuccess={handleConfirmPayout}
-      confirmPayoutFailure={handleConfirmPayout}
-    />
-    <Payin
-      successPayin={handleConfirmPayout}
-      failurePayin={handleConfirmPayout}
-    />
-    <Address paymentStatus={paymentStatus} />
-    <PaymentInProgess paymentStatus={paymentStatus} />
-    <PayinComplete paymentStatus={paymentStatus} />
-    <PayoutComplete /> */}
-  </React.Fragment>
+  
+  handleFailedPayout = () => {
+    console.log('Payment Failed')
+  }
+  
+  handleConfirmPayin = (status) => {
+    if(status === 'PENDING'){
+      this.props.history.push('address')
+    }
+  }
+
+  handleFailurePayin = () => {
+    console.log('hadle failure payin')
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <Switch>
+          {/* Payout Routes */}
+          <Route exact path="/payout">
+            <Payout
+              confirmPayoutSuccess={this.handleConfirmPayout}
+              confirmPayoutFailure={this.handleFailedPayout} />
+          </Route>
+          <Route exact path='/confirm' component={() => <PayoutComplete />} />
+
+          {/* Payin Routes */}
+          <Route exact path="/payin">
+            <Payin
+              successPayin={this.handleConfirmPayin}
+              failurePayin={this.handleFailurePayin}
+            />
+          </Route>
+          <Route exact path="/address" component={() => <Address paymentStatus={this.paymentStatus} />} />
+          <Route exact path="/seen" component={() => <PaymentInProgess paymentStatus={this.paymentStatus} />} />
+          <Route exact path="/done" component={() => <PayinComplete paymentStatus={this.paymentStatus} />} />
+        </Switch>
+      </React.Fragment>
+    )
+  }
 }
 
-export default App
+export default withRouter(App)

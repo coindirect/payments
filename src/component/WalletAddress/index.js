@@ -18,6 +18,7 @@ class WalletAddress extends Component {
       isLoading: true,
       currencies: []
     }
+    this.setInterval = {}
   }
 
   copyAddress = () => {
@@ -69,7 +70,7 @@ class WalletAddress extends Component {
         console.log('error', error)
       })
     this.getStatus(uuid)
-    setInterval(() => {
+    this.setInterval = setInterval(() => {
       this.getStatus(uuid)
     }, 15000);
   }
@@ -79,6 +80,10 @@ class WalletAddress extends Component {
       return false;
     }
     return currency.code === this?.state?.walletData?.quote?.from;
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.setInterval)
   }
 
   getUri = () => {

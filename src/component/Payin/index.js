@@ -19,27 +19,51 @@ class Payin extends Component {
             selectedCurrencyCode: 'BTC',
             response: false,
             isLoader: true,
-            isUpdating: true,
+            isUpdating: false,
             merchantId: '',
             displayName: '',
             errorMsg: '',
-            isNextDisabled: false
+            isNextDisabled: false,
+            payoutCurrency: []
         }
     }
 
     componentDidMount() {
+        let uuid = new URLSearchParams(window.location.search).get("uuid");
         Api.getCurrencies()
             .then((response) => {
                 this.setState({
                     payoutCurrency: response.data,
                 })
+                this.getStatus(uuid)
             })
             .catch((error) => {
                 console.log('error', error)
             })
-        let uuid = new URLSearchParams(window.location.search).get("uuid");
         sessionStorage.setItem('uuid', uuid ? uuid : sessionStorage.getItem('uuid'));
-        this.updateCurrency("BTC", "Bitcoin")
+    }
+
+    getStatus = (uuid) => {
+        Api.status(uuid)
+            .then((status) => {
+                console.log(this.state.payoutCurrency, status?.data?.quote)
+                this.setState({
+                    data: status.data,
+                    response: true,
+                    selectedCurrency: this.state.payoutCurrency?.filter(item => item?.code === status?.data?.quote?.to)[0].name,
+                    selectedCurrencyCode: status?.data?.quote?.to,
+                    miliseconds: status?.data?.quote?.acceptanceExpiryDate,
+                    isLoader: false,
+                    merchantId: status?.data?.merchantId,
+                    errorMsg: ''
+                }, () => {
+                    this.merchant(this.state.merchantId);
+                    this.updateCurrency(this.state.selectedCurrencyCode, this.state.selectedCurrency)
+                })
+            })
+            .catch((error) => {
+                console.log('error', error)
+            })
     }
 
     setDropdown = () => {
@@ -52,7 +76,8 @@ class Payin extends Component {
         Api.merchantInfo(id)
             .then((response) => {
                 this.setState({
-                    displayName: response.data.displayName
+                    displayName: response.data.displayName,
+                    isLoader: false,
                 })
             }).catch((error) => {
                 this.setState({
@@ -78,12 +103,10 @@ class Payin extends Component {
                         merchantId: response.data.merchantId,
                         errorMsg: ''
                     })
-                    this.merchant(this.state.merchantId);
-
                 })
                 .catch((error) => {
                     this.setState({
-                        flag: (error && (error.response.status === 500)) ? true : false,
+                        flag: (error.response && (error.response.status === 500)) ? true : false,
                         isLoader: false,
                         errorMsg: error.response && error.response.data && error.response.data.errorList.length && (error.response.data.errorList[0].message) || '',
                     })
@@ -99,8 +122,8 @@ class Payin extends Component {
         })
         let uuid = new URLSearchParams(window.location.search).get("uuid") || sessionStorage.getItem('uuid');
         Api.Accept(uuid)
-            .then(() => {
-                this.props.successPayin()
+            .then((response) => {
+                this.props.successPayin(response.data.status)
             })
             .catch((error) => {
                 this.props.failurePayin()
@@ -158,7 +181,7 @@ class Payin extends Component {
                                                     this.updateCurrency(value.code, value.name)
                                                 }} key={value.id}> {value.name}</div>
                                             })
-                                            : null
+                                                : null
                                         }
                                     </div>
                                 </div>
@@ -167,7 +190,8 @@ class Payin extends Component {
                                 <p>{t("Payment of")}</p>
                                 <p>{data && data.amount} {data.currency}</p>
                             </div>
-                            {isUpdating ? <Loader /> : <React.Fragment>
+                            {isUpdating ? <div className='overlay'></div> : null}
+                            <React.Fragment>
                                 <div className="currency-wrapper">
                                     <span>{data.quote && data.quote.from} {t("Equivalent")}  </span>
                                     <span>{(data.quote && data.quote.amountDue) || 0}</span>
@@ -187,7 +211,6 @@ class Payin extends Component {
                                         className="nextbutton">{t("Pay with external wallet")}</button>
                                 </div>
                             </React.Fragment>
-                            }
                             <div style={{ display: errorMsg ? 'block' : 'none' }} className="retrieve-rates">
                                 <div className="retrieve-rates-text">{errorMsg}</div>
                             </div>
