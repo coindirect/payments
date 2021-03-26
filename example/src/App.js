@@ -7,6 +7,8 @@ import {
   Route,
 } from "react-router-dom";
 import { withRouter } from 'react-router';
+import copy from './copy.svg'
+import confirm from './confirm.svg'
 
 class App extends Component {
 
@@ -57,7 +59,7 @@ class App extends Component {
               failurePayin={this.handleFailurePayin}
             />
           </Route>
-          <Route exact path="/address" component={() => <Address paymentStatus={this.paymentStatus} />} />
+          <Route exact path="/address" component={() => <Address paymentStatus={this.paymentStatus} copy={copy} confirm={confirm}/>} />
           <Route exact path="/seen" component={() => <PaymentInProgess paymentStatus={this.paymentStatus} />} />
           <Route exact path="/done" component={() => <PayinComplete paymentStatus={this.paymentStatus} />} />
         </Switch>

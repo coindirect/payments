@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import QRCode from 'qrcode.react';
 
-import copy from '../../images/copy.svg'
-import confirm from '../../images/confirm.svg'
 import Timer from '../Timer'
 import Api from '../../api';
 import Loader from '../Loader';
@@ -100,7 +98,7 @@ class WalletAddress extends Component {
 
   render() {
     const { flag, walletData, isLoading } = this.state;
-    const { t } = this.props;
+    const { t, copy, confirm } = this.props;
 
     return (
       <React.Fragment>
@@ -120,8 +118,8 @@ class WalletAddress extends Component {
                 </div>
                 <div>
                   <span>{t("Amount")}</span>
-                  <span>{walletData.quote && walletData.quote.amountDue || 0}
-                    {walletData.quote && walletData.quote.from}
+                  <span>{walletData?.quote?.amountDue || 0} 
+                    {walletData?.quote?.from}
                   </span>
                 </div>
               </div>
@@ -131,7 +129,7 @@ class WalletAddress extends Component {
               <p>{t("Only send ") + walletData?.quote?.from + t(" to this address")}</p>
               <div className="copy-button">
                 <span>
-                  {(walletData.quote && walletData.quote.payInInstruction.displayParameters.address || "")}
+                  {(walletData?.quote?.payInInstruction?.displayParameters?.address || "")}
                 </span>
                 <button onClick={this.copyAddress}><img src={flag ? confirm : copy} alt="" /></button>
               </div>
@@ -139,7 +137,7 @@ class WalletAddress extends Component {
                 <span>{t("Time left to pay")}</span>
                 <span>
                   <Timer
-                    miliseconds={walletData && walletData.quote && walletData.quote.paymentExpiryDate}
+                    miliseconds={walletData?.quote?.paymentExpiryDate}
                   />
                 </span>
               </div>

@@ -50,8 +50,8 @@ class Payin extends Component {
                 this.setState({
                     data: status.data,
                     response: true,
-                    selectedCurrency: this.state.payoutCurrency?.filter(item => item?.code === status?.data?.quote?.to)[0].name,
-                    selectedCurrencyCode: status?.data?.quote?.to,
+                    selectedCurrency: this.state.payoutCurrency?.filter(item => item?.code === status?.data?.quote?.to)[0]?.name || 'Bitcoin',
+                    selectedCurrencyCode: status?.data?.quote?.to || 'BTC',
                     miliseconds: status?.data?.quote?.acceptanceExpiryDate,
                     isLoader: false,
                     merchantId: status?.data?.merchantId,

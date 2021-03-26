@@ -5,7 +5,7 @@ import PayIn from './component/Payin';
 import PayOutComplete from './component/PayoutComplete';
 
 import PaymentInProgessComponent from './component/PaymentInProgess';
-import PayInComplete from './component/PayinComplete'
+import PayInComplete from './component/PayinComplete';
 
 import './i18n';
 
