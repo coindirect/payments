@@ -20,9 +20,12 @@ class WalletAddress extends Component {
   }
 
   copyAddress = () => {
-    this.setState({ flag: true })
-    navigator.clipboard.writeText(this.state.walletData.quote
-      && this.state.walletData.quote.payInInstruction.displayParameters.address);
+    this.setState({ flag: true });
+
+    if(navigator.clipboard) {
+      navigator.clipboard.writeText(this.state.walletData.quote
+        && this.state.walletData.quote.payInInstruction.displayParameters.address);
+    }
   }
 
   getStatus = (uuid) => {
@@ -84,16 +87,42 @@ class WalletAddress extends Component {
     clearInterval(this.setInterval)
   }
 
+  getErc20Uri(contract, to, amount, decimals) {
+    let value = amount * 10**decimals;
+    return "ethereum:"+contract+"/transfer?address="+encodeURIComponent(to)+"&uint256="+encodeURIComponent(value);
+  }
+
+  getFullUri = (currency, address, amount, tag) => {
+    if(currency) {
+      const code = currency.code.toUpperCase();
+      switch(code) {
+        case 'USDT':
+          return this.getErc20Uri("0xdAC17F958D2ee523a2206206994597C13D831ec7", address, amount, 6);
+        case 'USDC':
+          return this.getErc20Uri("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", address, amount, 6);
+        case 'DAI':
+          return this.getErc20Uri("0x6b175474e89094c44da98b954eedeac495271d0f", address, amount, 18);
+        case 'XRP':
+          return "ripple:"
+            + encodeURIComponent(address)
+            + "?dt="+encodeURIComponent(tag)+"&amount="+encodeURIComponent(amount);
+        case 'BCH':
+          return address
+            + "?amount="+encodeURIComponent(amount);
+      }
+
+      return currency.name.toLowerCase().replace(" ", "") + ":"
+        + encodeURIComponent(address)
+        + "?amount="+encodeURIComponent(amount);
+    }
+    return address;
+  }
+
   getUri = () => {
     let { walletData } = this.state;
     let currency = this.state.currencies.find(this.checkCurrency);
 
-    if (currency) {
-      return currency.name.toLowerCase().replace(" ", "") + ":"
-        + encodeURIComponent(walletData?.quote?.payInInstruction?.displayParameters.address)
-        + "?amount=" + encodeURIComponent(walletData.quote.amountIn);
-    }
-    return walletData?.quote?.payInInstruction?.displayParameters?.address || '';
+    return this.getFullUri(currency, walletData?.quote?.payInInstruction?.displayParameters.address,walletData.quote.amountDue,  walletData?.quote?.payInInstruction?.displayParameters.tag)
   }
 
   render() {
@@ -118,7 +147,7 @@ class WalletAddress extends Component {
                 </div>
                 <div>
                   <span>{t("Amount")}</span>
-                  <span>{walletData?.quote?.amountDue || 0} 
+                  <span>{walletData?.quote?.amountDue || 0}
                     {walletData?.quote?.from}
                   </span>
                 </div>

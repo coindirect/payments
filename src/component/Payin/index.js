@@ -32,8 +32,14 @@ class Payin extends Component {
         let uuid = new URLSearchParams(window.location.search).get("uuid");
         Api.getCurrencies()
             .then((response) => {
+              let currencies = [];
+              Object.keys(response.data).forEach((v, i) => {
+                if(response.data[v].supportsDeposits) {
+                  currencies.push(response.data[v]);
+                }
+              });
                 this.setState({
-                    payoutCurrency: response.data,
+                    payoutCurrency: currencies,
                 })
                 this.getStatus(uuid)
             })

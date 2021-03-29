@@ -9,7 +9,7 @@ import Loader from '../Loader';
 
 import '../../App.css';
 
-			
+
 class PayOut extends Component {
 	constructor(props) {
 		super(props);
@@ -40,6 +40,7 @@ class PayOut extends Component {
 					payoutCurrency: response.data,
 					isLoading: false
 				})
+        this.updateCurrency("BTC", "Bitcoin");
 				this.getStatus(this.uuid)
 			})
 			.catch((error) => {
@@ -102,7 +103,7 @@ class PayOut extends Component {
 			}
 
 			let uuid = new URLSearchParams(window.location.search).get("uuid") || sessionStorage.getItem('uuid');
-			
+
 			Api.updateCurrency(data, uuid)
 				.then((response) => {
 					this.setState({
@@ -137,21 +138,22 @@ class PayOut extends Component {
 		this.setState({
 			isNextDisabled: true,
 			isOverlay: true
-		})
-		let uuid = new URLSearchParams(window.location.search).get("uuid") || sessionStorage.getItem('uuid');
-		Api.Accept(uuid)
-			.then(() => {
-				this.props.confirmPayoutSuccess()
-			})
-			.catch((error) => {
-				this.props.confirmPayoutFailure()
-				this.setState({
-					errorMsg: this.props.t('Something went wrong'),
-					popUpError: true,
-					isNextDisabled: false,
-					isOverlay: false
-				})
-			})
+		},  () => {
+      let uuid = new URLSearchParams(window.location.search).get("uuid") || sessionStorage.getItem('uuid');
+      Api.Accept(uuid)
+        .then(() => {
+          this.props.confirmPayoutSuccess()
+        })
+        .catch((error) => {
+          this.props.confirmPayoutFailure()
+          this.setState({
+            errorMsg: this.props.t('Something went wrong'),
+            popUpError: true,
+            isNextDisabled: false,
+            isOverlay: false
+          })
+        })
+    })
 	}
 
 	handleAddress = (event) => {
