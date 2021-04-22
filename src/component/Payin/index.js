@@ -25,7 +25,8 @@ class Payin extends Component {
       displayName: '',
       errorMsg: '',
       isNextDisabled: false,
-      payoutCurrency: []
+      payoutCurrency: [],
+      isError: false
     }
     this.uuid =
       new URLSearchParams(window.location.search).get('uuid') ||

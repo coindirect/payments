@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Api from '../../api'
+import ErrorMessage from '../ErrorMessage'
+
 class PayinComplete extends Component {
   constructor() {
     super()
     this.state = {
-      paymentInfo: ''
+      paymentInfo: '',
+      isError: false
     }
+    this.uuid =
+      new URLSearchParams(window.location.search).get('uuid') ||
+      window.sessionStorage.getItem('uuid')
   }
 
   componentDidMount() {
-    const uuid =
-      new URLSearchParams(window.location.search).get('uuid') ||
-      window.sessionStorage.getItem('uuid')
+    if (!this.uuid) return
+
     if (!this.state.paymentInfo) {
-      Api.status(uuid)
+      Api.status(this.uuid)
         .then((response) => {
           this.setState({
             paymentInfo: response.data
           })
         })
         .catch((error) => {
+          this.setState({
+            isError: true
+          })
           console.log('error', error)
         })
     }
@@ -28,7 +36,20 @@ class PayinComplete extends Component {
 
   render() {
     const { t } = this.props
-    const { paymentInfo } = this.state
+    const { paymentInfo, isError } = this.state
+
+    if (!this.uuid || isError) {
+      return (
+        <ErrorMessage
+          message={
+            !this.uuid
+              ? t('Something went wrong')
+              : t('Error fetching merchant information')
+          }
+        />
+      )
+    }
+
     return (
       <div className='payment-done-container'>
         <h1 className=''>{t('Payment completed')}</h1>
