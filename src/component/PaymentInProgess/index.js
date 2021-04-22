@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Api from '../../api'
+import ErrorMessage from '../ErrorMessage'
 import Loader from '../Loader'
+
 class PaymentInProgess extends Component {
   constructor() {
     super()
     this.state = {
-      walletData: {}
+      walletData: {},
+      isError: false
     }
+    this.uuid = window.sessionStorage.getItem('uuid')
   }
 
   componentDidMount() {
-    const uuid = window.sessionStorage.getItem('uuid')
-    this.getStatus(uuid)
+    if (!this.uuid) return
+
+    this.getStatus(this.uuid)
     setInterval(() => {
-      this.getStatus(uuid)
+      this.getStatus(this.uuid)
     }, 15000)
   }
 
@@ -35,12 +40,28 @@ class PaymentInProgess extends Component {
       })
       .catch((error) => {
         console.log('error', error)
+        this.setState({
+          isError: true
+        })
       })
   }
 
   render() {
     const { t } = this.props
-    const { walletData } = this.state
+    const { walletData, isError } = this.state
+
+    if (!this.uuid || isError) {
+      return (
+        <ErrorMessage
+          message={
+            !this.uuid
+              ? t('Something went wrong')
+              : t('Error fetching merchant information')
+          }
+        />
+      )
+    }
+
     return (
       <React.Fragment>
         {Object.keys(walletData)?.length ? (
