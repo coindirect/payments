@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import close from '../../images/cancel.svg'
-import alert from '../../images/alert.svg'
-import downarrow from '../../images/downarrow.svg'
+import { ReactComponent as CancelIcon } from '../../images/cancel.svg'
+import { ReactComponent as AlertIcon } from '../../images/alert.svg'
+import { ReactComponent as DownArrowIcon } from '../../images/downarrow.svg'
 import { withTranslation } from 'react-i18next'
 import Timer from '../Timer'
 import Api from '../../api'
 import Loader from '../Loader'
 
 import '../../App.css'
+import ErrorMessage from '../ErrorMessage'
 
 class PayOut extends Component {
   constructor(props) {
@@ -28,14 +29,18 @@ class PayOut extends Component {
       isNextDisabled: true,
       isOverlay: false
     }
-    this.uuid = new URLSearchParams(window.location.search).get('uuid')
-    window.sessionStorage.setItem(
-      'uuid',
-      this.uuid ? this.uuid : window.sessionStorage.getItem('uuid')
-    )
+    this.uuid =
+      new URLSearchParams(window.location.search).get('uuid') ||
+      window.sessionStorage.getItem('uuid')
+
+    if (this.uuid) {
+      window.sessionStorage.setItem('uuid', this.uuid)
+    }
   }
 
   componentDidMount() {
+    if (!this.uuid) return
+
     Api.getCurrencies()
       .then((response) => {
         this.setState({
@@ -48,7 +53,8 @@ class PayOut extends Component {
       .catch((error) => {
         console.log('error', error)
         this.setState({
-          isLoading: false
+          isLoading: false,
+          isError: true
         })
       })
   }
@@ -111,11 +117,7 @@ class PayOut extends Component {
         data.payOutInstruction = null
       }
 
-      const uuid =
-        new URLSearchParams(window.location.search).get('uuid') ||
-        window.sessionStorage.getItem('uuid')
-
-      Api.updateCurrency(data, uuid)
+      Api.updateCurrency(data, this.uuid)
         .then((response) => {
           this.setState({
             data: response.data,
@@ -217,10 +219,24 @@ class PayOut extends Component {
       isNextDisabled,
       walletAddress,
       isOverlay,
+      isError,
       payoutCurrency
     } = this.state
 
     const { t } = this.props
+
+    if (!this.uuid || isError) {
+      return (
+        <ErrorMessage
+          message={
+            !this.uuid
+              ? t('Something went wrong')
+              : t('Error fetching merchant information')
+          }
+        />
+      )
+    }
+
     return (
       <React.Fragment>
         {isLoading ? (
@@ -229,7 +245,7 @@ class PayOut extends Component {
           <div className='App' style={{ opacity: isOverlay ? 0.5 : 1 }}>
             {popUpError && (
               <div className='error-panel-container'>
-                <img className='error-image' alt='' src={alert} />
+                <AlertIcon className='error-image' />
                 <div className='error-message-container'>
                   <span className='error'>{t('Error')}</span>
                   <span className='error-message'>
@@ -240,7 +256,7 @@ class PayOut extends Component {
                   className='error-message-close'
                   onClick={() => this.closeErrorContainer()}
                 >
-                  <img src={close} alt='' />
+                  <CancelIcon />
                 </span>
               </div>
             )}
@@ -311,7 +327,7 @@ class PayOut extends Component {
                 <div className='dropdown-container-state'>
                   <span className='dropdown-box'>{selectedCurrency}</span>
                   <div>
-                    <img className='dropdown-arrow' alt='' src={downarrow} />
+                    <DownArrowIcon className='dropdown-arrow' />
                   </div>
                 </div>
                 <div
