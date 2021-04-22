@@ -13,14 +13,14 @@ class PayOutComplete extends Component {
       isError: false,
       isLoading: true
     }
+    this.uuid = window.sessionStorage.getItem('uuid')
   }
 
   componentDidMount() {
+    if (!this.uuid) return
+
     const data = {}
     data.successUrl = 'no_url'
-    this.uuid = window.sessionStorage.getItem('uuid')
-
-    if (!this.uuid) return
 
     Api.getCurrencies()
       .then((response) => {

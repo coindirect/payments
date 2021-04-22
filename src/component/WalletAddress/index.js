@@ -6,6 +6,7 @@ import QRCode from 'qrcode.react'
 import Timer from '../Timer'
 import Api from '../../api'
 import Loader from '../Loader'
+import ErrorMessage from '../ErrorMessage'
 
 class WalletAddress extends Component {
   constructor(props) {
@@ -14,9 +15,13 @@ class WalletAddress extends Component {
       flag: false,
       walletData: {},
       isLoading: true,
-      currencies: []
+      currencies: [],
+      isError: false
     }
     this.setInterval = {}
+    this.uuid =
+      new URLSearchParams(window.location.search).get('uuid') ||
+      window.sessionStorage.getItem('uuid')
   }
 
   copyAddress = () => {
@@ -60,9 +65,8 @@ class WalletAddress extends Component {
   }
 
   componentDidMount() {
-    const uuid =
-      new URLSearchParams(window.location.search).get('uuid') ||
-      window.sessionStorage.getItem('uuid')
+    if (!this.uuid) return
+
     Api.getCurrencies()
       .then((response) => {
         if (!this.state.currencies.length) {
@@ -73,10 +77,13 @@ class WalletAddress extends Component {
       })
       .catch((error) => {
         console.log('error', error)
+        this.setState({
+          isError: true
+        })
       })
-    this.getStatus(uuid)
+    this.getStatus(this.uuid)
     this.setInterval = setInterval(() => {
-      this.getStatus(uuid)
+      this.getStatus(this.uuid)
     }, 15000)
   }
 
@@ -165,8 +172,20 @@ class WalletAddress extends Component {
   }
 
   render() {
-    const { flag, walletData, isLoading } = this.state
+    const { flag, walletData, isLoading, isError } = this.state
     const { t, copy, confirm } = this.props
+
+    if (!this.uuid || isError) {
+      return (
+        <ErrorMessage
+          message={
+            !this.uuid
+              ? t('Something went wrong')
+              : t('Error fetching merchant information')
+          }
+        />
+      )
+    }
 
     return (
       <React.Fragment>
