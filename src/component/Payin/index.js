@@ -3,10 +3,11 @@ import { withTranslation } from 'react-i18next'
 import Timer from '../Timer'
 import Api from '../../api'
 import Loader from '../Loader'
-import close from '../../images/cancel.svg'
-import alert from '../../images/alert.svg'
+import { ReactComponent as CancelIcon } from '../../images/cancel.svg'
+import { ReactComponent as AlertIcon } from '../../images/alert.svg'
 
 import '../../App.css'
+import ErrorMessage from '../ErrorMessage'
 class Payin extends Component {
   constructor(props) {
     super(props)
@@ -26,10 +27,18 @@ class Payin extends Component {
       isNextDisabled: false,
       payoutCurrency: []
     }
+    this.uuid =
+      new URLSearchParams(window.location.search).get('uuid') ||
+      window.sessionStorage.getItem('uuid')
+
+    if (this.uuid) {
+      window.sessionStorage.setItem('uuid', this.uuid)
+    }
   }
 
   componentDidMount() {
-    const uuid = new URLSearchParams(window.location.search).get('uuid')
+    if (!this.uuid) return
+
     Api.getCurrencies()
       .then((response) => {
         const currencies = []
@@ -41,15 +50,14 @@ class Payin extends Component {
         this.setState({
           payoutCurrency: currencies
         })
-        this.getStatus(uuid)
+        this.getStatus(this.uuid)
       })
       .catch((error) => {
         console.log('error', error)
+        this.setState({
+          isError: true
+        })
       })
-    window.sessionStorage.setItem(
-      'uuid',
-      uuid || window.sessionStorage.getItem('uuid')
-    )
   }
 
   getStatus = (uuid) => {
@@ -186,10 +194,24 @@ class Payin extends Component {
       flag,
       isUpdating,
       isNextDisabled,
-      payoutCurrency
+      payoutCurrency,
+      isError
     } = this.state
 
     const { t } = this.props
+
+    if (!this.uuid || isError) {
+      return (
+        <ErrorMessage
+          message={
+            !this.uuid
+              ? t('Something went wrong')
+              : t('Error fetching merchant information')
+          }
+        />
+      )
+    }
+
     return (
       <React.Fragment>
         {isLoader ? (
@@ -198,7 +220,7 @@ class Payin extends Component {
           <div className='payin-container'>
             {flag && (
               <div className='error-panel-container'>
-                <img className='error-image' alt='' src={alert} />
+                <AlertIcon className='error-image' />
                 <div className='error-message-container'>
                   <span className='error'>{t('Error')}</span>
                   <span className='error-message'>
@@ -209,7 +231,7 @@ class Payin extends Component {
                   className='error-message-close'
                   onClick={() => this.closeErrorContainer()}
                 >
-                  <img src={close} alt='' />
+                  <CancelIcon />
                 </span>
               </div>
             )}
