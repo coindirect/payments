@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Api from '../../api'
 import { withTranslation } from 'react-i18next'
 import Loader from '../Loader'
+import ErrorMessage from '../ErrorMessage'
 
 class PayOutComplete extends Component {
   constructor(props) {
@@ -17,7 +18,10 @@ class PayOutComplete extends Component {
   componentDidMount() {
     const data = {}
     data.successUrl = 'no_url'
-    var uuid = window.sessionStorage.getItem('uuid')
+    this.uuid = window.sessionStorage.getItem('uuid')
+
+    if (!this.uuid) return
+
     Api.getCurrencies()
       .then((response) => {
         this.setState({
@@ -28,10 +32,11 @@ class PayOutComplete extends Component {
       .catch((error) => {
         console.log('error', error)
         this.setState({
-          isLoading: false
+          isLoading: false,
+          isError: true
         })
       })
-    this.getStatus(uuid)
+    this.getStatus(this.uuid)
   }
 
   getStatus = (uuid) => {
@@ -44,6 +49,9 @@ class PayOutComplete extends Component {
       })
       .catch((error) => {
         console.log('error', error)
+        this.setState({
+          isError: true
+        })
       })
   }
 
@@ -55,6 +63,10 @@ class PayOutComplete extends Component {
       isLoading
     } = this.state
     const { t } = this.props
+
+    if (!this.uuid) {
+      return <ErrorMessage message={t('Something went wrong')} />
+    }
 
     let result
 
