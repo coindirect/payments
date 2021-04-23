@@ -3,6 +3,7 @@ import Api from '../../api'
 import { withTranslation } from 'react-i18next'
 import Loader from '../Loader'
 import ErrorMessage from '../ErrorMessage'
+import { getUuid } from '../../utils/uuid'
 
 class PayOutComplete extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class PayOutComplete extends Component {
       isError: false,
       isLoading: true
     }
-    this.uuid = window.sessionStorage.getItem('uuid')
+    this.uuid = getUuid(props.uuid)
   }
 
   componentDidMount() {

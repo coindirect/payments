@@ -7,6 +7,7 @@ import Timer from '../Timer'
 import Api from '../../api'
 import Loader from '../Loader'
 import ErrorMessage from '../ErrorMessage'
+import { getAndSaveUuid } from '../../utils/uuid'
 
 class WalletAddress extends Component {
   constructor(props) {
@@ -19,9 +20,7 @@ class WalletAddress extends Component {
       isError: false
     }
     this.setInterval = {}
-    this.uuid =
-      new URLSearchParams(window.location.search).get('uuid') ||
-      window.sessionStorage.getItem('uuid')
+    this.uuid = getAndSaveUuid(props.uuid)
   }
 
   copyAddress = () => {

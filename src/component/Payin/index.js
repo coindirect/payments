@@ -8,6 +8,7 @@ import { ReactComponent as AlertIcon } from '../../images/alert.svg'
 
 import '../../App.css'
 import ErrorMessage from '../ErrorMessage'
+import { getAndSaveUuid } from '../../utils/uuid'
 class Payin extends Component {
   constructor(props) {
     super(props)
@@ -28,13 +29,7 @@ class Payin extends Component {
       payoutCurrency: [],
       isError: false
     }
-    this.uuid =
-      new URLSearchParams(window.location.search).get('uuid') ||
-      window.sessionStorage.getItem('uuid')
-
-    if (this.uuid) {
-      window.sessionStorage.setItem('uuid', this.uuid)
-    }
+    this.uuid = getAndSaveUuid(props.uuid)
   }
 
   componentDidMount() {

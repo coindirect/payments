@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Api from '../../api'
+import { getUuid } from '../../utils/uuid'
 import ErrorMessage from '../ErrorMessage'
 import Loader from '../Loader'
 
 class PaymentInProgess extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       walletData: {},
       isError: false
     }
-    this.uuid = window.sessionStorage.getItem('uuid')
+    this.uuid = getUuid(props.uuid)
   }
 
   componentDidMount() {

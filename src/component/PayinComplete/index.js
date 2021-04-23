@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Api from '../../api'
+import { getUuid } from '../../utils/uuid'
 import ErrorMessage from '../ErrorMessage'
 
 class PayinComplete extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       paymentInfo: '',
       isError: false
     }
-    this.uuid =
-      new URLSearchParams(window.location.search).get('uuid') ||
-      window.sessionStorage.getItem('uuid')
+    this.uuid = getUuid(props.uuid)
   }
 
   componentDidMount() {
