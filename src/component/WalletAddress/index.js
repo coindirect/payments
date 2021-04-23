@@ -191,9 +191,9 @@ class WalletAddress extends Component {
         {isLoading ? (
           <Loader />
         ) : (
-          <div className='scanner-container'>
+          <div className='cdp--scanner-container'>
             <div>
-              <h1 className='page-heading'>
+              <h1 className='cdp--page-heading'>
                 {t('Pay with')}{' '}
                 {(walletData.quote && walletData.quote.from) || ''}
               </h1>
@@ -202,7 +202,7 @@ class WalletAddress extends Component {
                   'To complete this payment send exactly this amount to the address provided'
                 )}
               </p>
-              <div className='etc-wrapper'>
+              <div className='cdp--etc-wrapper'>
                 <span>{(walletData.quote && walletData.quote.from) || ''}</span>
                 <span>
                   {(walletData.quote && walletData.quote.amountDue) || 0}
@@ -216,7 +216,7 @@ class WalletAddress extends Component {
                 </span>
               </div>
             </div>
-            <div className='scanner-view'>
+            <div className='cdp--scanner-view'>
               <QRCode value={this.getUri()} />
             </div>
             <p>
@@ -224,7 +224,7 @@ class WalletAddress extends Component {
                 walletData?.quote?.from +
                 t(' to this address')}
             </p>
-            <div className='copy-button'>
+            <div className='cdp--copy-button'>
               <span>
                 {walletData?.quote?.payInInstruction?.displayParameters
                   ?.address || ''}
@@ -233,7 +233,7 @@ class WalletAddress extends Component {
                 <img src={flag ? confirm : copy} alt='' />
               </button>
             </div>
-            <div className='pay-time-wrapper'>
+            <div className='cdp--pay-time-wrapper'>
               <span>{t('Time left to pay')}</span>
               <span>
                 <Timer miliseconds={walletData?.quote?.paymentExpiryDate} />

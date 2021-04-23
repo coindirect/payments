@@ -7,7 +7,6 @@ import Timer from '../Timer'
 import Api from '../../api'
 import Loader from '../Loader'
 
-import '../../App.css'
 import ErrorMessage from '../ErrorMessage'
 import { getAndSaveUuid } from '../../utils/uuid'
 
@@ -237,44 +236,44 @@ class PayOut extends Component {
         {isLoading ? (
           <Loader />
         ) : (
-          <div className='App' style={{ opacity: isOverlay ? 0.5 : 1 }}>
+          <div style={{ opacity: isOverlay ? 0.5 : 1 }}>
             {popUpError && (
-              <div className='error-panel-container'>
-                <AlertIcon className='error-image' />
-                <div className='error-message-container'>
-                  <span className='error'>{t('Error')}</span>
-                  <span className='error-message'>
+              <div className='cdp--error-panel-container'>
+                <AlertIcon className='cdp--error-image' />
+                <div className='cdp--error-message-container'>
+                  <span className='cdp--error'>{t('Error')}</span>
+                  <span className='cdp--error-message'>
                     {t('No additional info available')}
                   </span>
                 </div>
                 <span
-                  className='error-message-close'
+                  className='cdp--error-message-close'
                   onClick={() => this.closeErrorContainer()}
                 >
                   <CancelIcon />
                 </span>
               </div>
             )}
-            <h1 className='page-heading'>{t('Confirm payout')}</h1>
-            <p className='subheading'>
+            <h1 className='cdp--page-heading'>{t('Confirm payout')}</h1>
+            <p className='cdp--subheading'>
               {t("We don't share your financial details with the merchant.")}
             </p>
 
-            <div className='payout-container'>
-              <table className='payout-table'>
+            <div className='cdp--payout-container'>
+              <table className='cdp--payout-table'>
                 <thead>
-                  <tr className='payout-table-heading-row'>
-                    <th className='payout-heading'>{t('Payout of')}</th>
-                    <th className='payout-value'>
+                  <tr className='cdp--payout-table-heading-row'>
+                    <th className='cdp--payout-heading'>{t('Payout of')}</th>
+                    <th className='cdp--payout-value'>
                       {(data && data.amount) || 0}
                       {(data.quote && data.quote.from) || ''}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className='payout-table-data-row'>
-                    <td className='payout-heading'>{t('Fee')}</td>
-                    <td className='payout-fee-value'>
+                  <tr className='cdp--payout-table-data-row'>
+                    <td className='cdp--payout-heading'>{t('Fee')}</td>
+                    <td className='cdp--payout-fee-value'>
                       {(data.quote && data.quote.fee) || 0}
                       {data && data.currency}
                     </td>
@@ -284,22 +283,24 @@ class PayOut extends Component {
             </div>
 
             <div>
-              <table className='payout-receive-table'>
+              <table className='cdp--payout-receive-table'>
                 <thead>
-                  <tr className='payout-receive'>
-                    <th className='payout-receive-title'>{t('You receive')}</th>
-                    <th className='payout-receive-value'>
+                  <tr className='cdp--payout-receive'>
+                    <th className='cdp--payout-receive-title'>
+                      {t('You receive')}
+                    </th>
+                    <th className='cdp--payout-receive-value'>
                       {(data.quote && data.quote.amountOut) || 0}
                       {(data.quote && data.quote.to) || ''}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className='payout-quote'>
-                    <td className='payout-quote-title'>
+                  <tr className='cdp--payout-quote'>
+                    <td className='cdp--payout-quote-title'>
                       {t('Quote expires in')}
                     </td>
-                    <td className='payout-quote-value'>
+                    <td className='cdp--payout-quote-value'>
                       <Timer
                         timerExpiry={this.updateCurrency}
                         name={selectedCurrency}
@@ -312,21 +313,21 @@ class PayOut extends Component {
               </table>
             </div>
             <div>
-              <p className='change-payout-currency'>
+              <p className='cdp--change-payout-currency'>
                 {t('Change payout currency')}
               </p>
               <div
-                className='dropdown-container'
+                className='cdp--dropdown-container'
                 onClick={() => this.setDropdown()}
               >
-                <div className='dropdown-container-state'>
-                  <span className='dropdown-box'>{selectedCurrency}</span>
+                <div className='cdp--dropdown-container-state'>
+                  <span className='cdp--dropdown-box'>{selectedCurrency}</span>
                   <div>
-                    <DownArrowIcon className='dropdown-arrow' />
+                    <DownArrowIcon className='cdp--dropdown-arrow' />
                   </div>
                 </div>
                 <div
-                  className='dropdown-content'
+                  className='cdp--dropdown-content'
                   style={{
                     display: openDropdown
                       ? 'block'
@@ -354,29 +355,29 @@ class PayOut extends Component {
                     : null}
                 </div>
               </div>
-              <p className='wallet-address-description'>
+              <p className='cdp--wallet-address-description'>
                 {t('Address where you wish to be paid')}
               </p>
               <input
                 type='text'
-                className='wallet-input'
+                className='cdp--wallet-input'
                 name='walletAddress'
                 onChange={this.handleAddress}
                 placeholder={walletAddress || 'Enter wallet address'}
               />
             </div>
-            <div className='next-btn'>
+            <div className='cdp--next-btn'>
               <button
                 disabled={isNextDisabled}
                 onClick={this.confirmPayout}
-                className='nextbutton'
+                className='cdp--nextbutton'
               >
                 {t('Next')}
               </button>
             </div>
             {errorMsg ? (
-              <div className='retrieve-rates'>
-                <div className='retrieve-rates-text'>{errorMsg}</div>
+              <div className='cdp--retrieve-rates'>
+                <div className='cdp--retrieve-rates-text'>{errorMsg}</div>
               </div>
             ) : null}
           </div>

@@ -2,10 +2,10 @@ import React from 'react'
 
 function Loader() {
   return (
-    <div className='loader-content'>
-      <div className='loader-circle' />
-      <div className='loader-line-mask one'>
-        <div className='loader-line' />
+    <div className='cdp--loader-content'>
+      <div className='cdp--loader-circle' />
+      <div className='cdp--loader-line-mask cdp--one'>
+        <div className='cdp--loader-line' />
       </div>
     </div>
   )

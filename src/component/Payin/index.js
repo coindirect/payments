@@ -6,7 +6,6 @@ import Loader from '../Loader'
 import { ReactComponent as CancelIcon } from '../../images/cancel.svg'
 import { ReactComponent as AlertIcon } from '../../images/alert.svg'
 
-import '../../App.css'
 import ErrorMessage from '../ErrorMessage'
 import { getAndSaveUuid } from '../../utils/uuid'
 class Payin extends Component {
@@ -49,7 +48,7 @@ class Payin extends Component {
         this.getStatus(this.uuid)
       })
       .catch((error) => {
-        console.log('error', error)
+        console.log('errorXX', error)
         this.setState({
           isError: true
         })
@@ -85,6 +84,9 @@ class Payin extends Component {
       })
       .catch((error) => {
         console.log('error', error)
+        this.setState({
+          isError: true
+        })
       })
   }
 
@@ -194,6 +196,8 @@ class Payin extends Component {
       isError
     } = this.state
 
+    console.log({ state: this.state })
+
     const { t } = this.props
 
     if (!this.uuid || isError) {
@@ -213,26 +217,26 @@ class Payin extends Component {
         {isLoader ? (
           <Loader />
         ) : (
-          <div className='payin-container'>
+          <div className='cdp--payin-container'>
             {flag && (
-              <div className='error-panel-container'>
-                <AlertIcon className='error-image' />
-                <div className='error-message-container'>
-                  <span className='error'>{t('Error')}</span>
-                  <span className='error-message'>
+              <div className='cdp--error-panel-container'>
+                <AlertIcon className='cdp--error-image' />
+                <div className='cdp--error-message-container'>
+                  <span className='cdp--error'>{t('Error')}</span>
+                  <span className='cdp--error-message'>
                     {t('No additional info available')}
                   </span>
                 </div>
                 <span
-                  className='error-message-close'
+                  className='cdp--error-message-close'
                   onClick={() => this.closeErrorContainer()}
                 >
                   <CancelIcon />
                 </span>
               </div>
             )}
-            <div className='pay-in-heading-wrapper'>
-              <h1 className='page-heading'>
+            <div className='cdp--payin-heading-wrapper'>
+              <h1 className='cdp--page-heading'>
                 {t('Pay with ') + selectedCurrency}
               </h1>
               <p>
@@ -241,16 +245,16 @@ class Payin extends Component {
               </p>
             </div>
             <div>
-              <p className='change-payout-currency'>{t('Pay with')}</p>
+              <p className='cdp--change-payout-currency'>{t('Pay with')}</p>
               <div
-                className='dropdown-container'
+                className='cdp--dropdown-container'
                 onClick={() => this.setDropdown()}
               >
-                <div className='dropdown-container-state'>
-                  <span className='dropdown-box'>{selectedCurrency}</span>
+                <div className='cdp--dropdown-container-state'>
+                  <span className='cdp--dropdown-box'>{selectedCurrency}</span>
                 </div>
                 <div
-                  className='dropdown-content'
+                  className='cdp--dropdown-content'
                   style={{ display: openDropdown ? 'block' : 'none' }}
                 >
                   {payoutCurrency && payoutCurrency.length
@@ -271,21 +275,21 @@ class Payin extends Component {
                 </div>
               </div>
             </div>
-            <div className='payment-of-wrapper'>
+            <div className='cdp--payment-of-wrapper'>
               <p>{t('Payment of')}</p>
               <p>
                 {data && data.amount} {data.currency}
               </p>
             </div>
-            {isUpdating ? <div className='overlay' /> : null}
+            {isUpdating ? <div className='cdp--overlay' /> : null}
             <React.Fragment>
-              <div className='currency-wrapper'>
+              <div className='cdp--currency-wrapper'>
                 <span>
                   {data.quote && data.quote.from} {t('Equivalent')}{' '}
                 </span>
                 <span>{(data.quote && data.quote.amountDue) || 0}</span>
               </div>
-              <div className='pay-time-wrapper'>
+              <div className='cdp--pay-time-wrapper'>
                 <span>{t('Quote expires in')}</span>
                 <span>
                   <Timer
@@ -296,11 +300,11 @@ class Payin extends Component {
                   />
                 </span>
               </div>
-              <div className='next-btn'>
+              <div className='cdp--next-btn'>
                 <button
                   onClick={this.payInWallet}
                   disabled={isNextDisabled}
-                  className='nextbutton'
+                  className='cdp--nextbutton'
                 >
                   {t('Pay with external wallet')}
                 </button>
@@ -308,9 +312,9 @@ class Payin extends Component {
             </React.Fragment>
             <div
               style={{ display: errorMsg ? 'block' : 'none' }}
-              className='retrieve-rates'
+              className='cdp--retrieve-rates'
             >
-              <div className='retrieve-rates-text'>{errorMsg}</div>
+              <div className='cdp--retrieve-rates-text'>{errorMsg}</div>
             </div>
             <br />
           </div>

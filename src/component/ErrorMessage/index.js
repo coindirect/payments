@@ -6,13 +6,11 @@ export default function ErrorMessage({ message }) {
   const { t } = useTranslation()
 
   return (
-    <div className='App'>
-      <div className='error-panel-container'>
-        <AlertIcon className='error-image' />
-        <div className='error-message-container'>
-          <span className='error'>{t('Error')}</span>
-          <span className='error-message'>{message}</span>
-        </div>
+    <div className='cdp--error-panel-container'>
+      <AlertIcon className='cdp--error-image' />
+      <div className='cdp--error-message-container'>
+        <span className='cdp--error'>{t('Error')}</span>
+        <span className='cdp--error-message'>{message}</span>
       </div>
     </div>
   )

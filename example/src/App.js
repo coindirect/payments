@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-
 import { Payout, Payin, Address, PaymentInProgess, PayinComplete, PayoutComplete } from 'coindirect-package'
-import 'coindirect-package/src/App.css';
+import 'coindirect-package/src/index.css';
 import {
   Switch,
   Route,
@@ -42,7 +41,7 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="App">
         <Switch>
           {/* Payout Routes */}
           <Route exact path="/payout">
@@ -63,7 +62,7 @@ class App extends Component {
           <Route exact path="/seen" component={() => <PaymentInProgess paymentStatus={this.paymentStatus} />} />
           <Route exact path="/done" component={() => <PayinComplete paymentStatus={this.paymentStatus} />} />
         </Switch>
-      </React.Fragment>
+      </div>
     )
   }
 }

@@ -50,29 +50,29 @@ class PayinComplete extends Component {
     }
 
     return (
-      <div className='payment-done-container'>
+      <div className='cdp--payment-done-container'>
         <h1 className=''>{t('Payment completed')}</h1>
-        <div className='total-paid'>
+        <div className='cdp--total-paid'>
           <p>{t('Paid')}</p>
           <p>
             {paymentInfo?.quote?.amountIn || 0}{' '}
             {paymentInfo?.quote && paymentInfo?.quote?.from}
           </p>
         </div>
-        <div className='total-payment'>
+        <div className='cdp--total-payment'>
           <p>Payment</p>
           <p>
             {paymentInfo?.walletAmount || 0} {paymentInfo?.quote?.to}
           </p>
         </div>
-        <div className='fee'>
+        <div className='cdp--fee'>
           <p>Fee</p>
           <p>
             {(paymentInfo.quote && paymentInfo.quote.fee) || 0}{' '}
             {paymentInfo.quote && paymentInfo.quote.to}
           </p>
         </div>
-        <div className='total-cost'>
+        <div className='cdp--total-cost'>
           <p>{t('Total cost')}</p>
           <p>
             {(paymentInfo.quote && paymentInfo.quote.amountOut) || 0}{' '}
@@ -82,13 +82,13 @@ class PayinComplete extends Component {
         {paymentInfo.returnUrl && paymentInfo.returnUrl.length > 0 ? (
           <center>
             <br />
-            <a href={paymentInfo.returnUrl} className='backbutton'>
+            <a href={paymentInfo.returnUrl} className='cdp--backbutton'>
               {t('Back to Merchant')}
             </a>
           </center>
         ) : null}
         <p>&nbsp;</p>
-        <div className='ref'>
+        <div className='cdp--ref'>
           <p>
             {t('Reference')} {paymentInfo.reference}
           </p>

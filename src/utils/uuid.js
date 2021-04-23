@@ -1,7 +1,7 @@
 export function getAndSaveUuid(uuid) {
   const _uuid = getUuid(uuid)
 
-  if (!_uuid) {
+  if (_uuid) {
     window.sessionStorage.setItem('uuid', _uuid)
   }
 

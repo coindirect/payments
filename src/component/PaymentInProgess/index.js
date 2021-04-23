@@ -66,8 +66,8 @@ class PaymentInProgess extends Component {
     return (
       <React.Fragment>
         {Object.keys(walletData)?.length ? (
-          <div className='payment-progress-container'>
-            <span className='great-qoute'>
+          <div className='cdp--payment-progress-container'>
+            <span className='cdp--great-qoute'>
               <strong>{t('Great')}! </strong>
               {t(
                 'We have detected your transaction on the blockchain and will now wait until the payment has been fully processed'
@@ -75,24 +75,24 @@ class PaymentInProgess extends Component {
               .
             </span>
             <p>&nbsp;</p>
-            <div className='total-paid'>
+            <div className='cdp--total-paid'>
               <p>{t('Seen')}</p>
               <p style={{ color: '#0C0F3D' }}>
                 {walletData?.quote?.amountIn} {walletData?.quote?.from}
               </p>
             </div>
-            <div className='total-amount'>
+            <div className='cdp--total-amount'>
               <p>{t('Total amount')} </p>
               <p style={{ color: '#0C0F3D' }}>
                 {walletData.walletAmount} {walletData.walletCurrency}
               </p>
             </div>
-            <span className='confirmation'>
+            <span className='cdp--confirmation'>
               {t(
                 'This feature requires blockchain confirmations before crediting your payment. Your merchant will update you on transaction progress.'
               )}
             </span>
-            <div className='ref'>
+            <div className='cdp--ref'>
               <p>
                 {t('Reference ')}
                 <b>{walletData.reference}</b>

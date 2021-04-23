@@ -78,23 +78,23 @@ class PayOutComplete extends Component {
     }
 
     return (
-      <div className='payment-container'>
+      <div className='cdp--payment-container'>
         {isLoading ? (
           <Loader />
         ) : (
           <React.Fragment>
-            <h1 className='page-heading'>{t('Payout Complete')}</h1>
-            <p className='success-quote'>
+            <h1 className='cdp--page-heading'>{t('Payout Complete')}</h1>
+            <p className='cdp--success-quote'>
               <b>{t('Success!')} </b>
               {result?.length > 0 &&
                 result.map((val) => t(`You have been paid out in `) + val.name)}
             </p>
             <div>
-              <div className='payout-of-wrapper'>
-                <p className='payout'>
+              <div className='cdp--payout-of-wrapper'>
+                <p className='cdp--payout'>
                   <strong>{t('Payout')}</strong>
                 </p>
-                <p className='amount'>
+                <p className='cdp--amount'>
                   <strong>
                     {(confirmPayoutData.quote &&
                       confirmPayoutData.quote.amountOut) ||
@@ -103,7 +103,7 @@ class PayOutComplete extends Component {
                   </strong>
                 </p>
               </div>
-              <div className='payout-fee-wrapper'>
+              <div className='cdp--payout-fee-wrapper'>
                 <span>{t('Fee')}</span>
                 <span>
                   {`${(confirmPayoutData && confirmPayoutData.fee) || 0} ${
@@ -112,7 +112,7 @@ class PayOutComplete extends Component {
                   }`}
                 </span>
               </div>
-              <div className='payout-equivalent-wrapper'>
+              <div className='cdp--payout-equivalent-wrapper'>
                 <p>
                   <b>
                     {confirmPayoutData.quote && confirmPayoutData.quote.from}{' '}
@@ -134,7 +134,7 @@ class PayOutComplete extends Component {
                   </strong>
                 </p>
               </div>
-              <div className='go-to-wallet-wrapper'>
+              <div className='cdp--go-to-wallet-wrapper'>
                 <a href='https://www.sandbox.coindirect.com/wallets/btc'>
                   <span>
                     <strong>{t('Go To Wallet')}</strong>
@@ -144,9 +144,9 @@ class PayOutComplete extends Component {
             </div>
             <div
               style={{ display: isError ? 'block' : 'none' }}
-              className='retrieve-rates'
+              className='cdp--retrieve-rates'
             >
-              <div className='retrieve-rates-text'>
+              <div className='cdp--retrieve-rates-text'>
                 {t('Something went wrong')}
               </div>
             </div>
