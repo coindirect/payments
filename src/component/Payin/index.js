@@ -196,8 +196,6 @@ class Payin extends Component {
       isError
     } = this.state
 
-    console.log({ state: this.state })
-
     const { t } = this.props
 
     if (!this.uuid || isError) {
