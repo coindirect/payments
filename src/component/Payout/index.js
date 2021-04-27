@@ -41,7 +41,6 @@ class PayOut extends Component {
           payoutCurrency: response.data,
           isLoading: false
         })
-        this.updateCurrency('BTC', 'Bitcoin')
         this.getStatus(this.uuid)
       })
       .catch((error) => {
