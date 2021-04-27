@@ -162,6 +162,10 @@ class WalletAddress extends Component {
     const { walletData } = this.state
     const currency = this.state.currencies.find(this.checkCurrency)
 
+    if (!walletData?.quote || walletData?.quote?.payInInstruction === 'NONE') {
+      return undefined
+    }
+
     return this.getFullUri(
       currency,
       walletData?.quote?.payInInstruction?.displayParameters.address,
@@ -173,6 +177,8 @@ class WalletAddress extends Component {
   render() {
     const { flag, walletData, isLoading, isError } = this.state
     const { t, copy, confirm } = this.props
+
+    const uri = this.getUri()
 
     if (!this.uuid || isError) {
       return (
@@ -217,7 +223,7 @@ class WalletAddress extends Component {
               </div>
             </div>
             <div className='cdp--scanner-view'>
-              <QRCode value={this.getUri()} />
+              {uri && <QRCode value={uri} />}
             </div>
             <p>
               {t('Only send ') +
