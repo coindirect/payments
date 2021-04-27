@@ -1,5 +1,5 @@
 {
-  "name": "coindirect-package-example",
+  "name": "coindirect-payments-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -10,7 +10,7 @@
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
-    "coindirect-package": "link:..",
+    "coindirect-payments": "link:..",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-router": "^5.2.0",

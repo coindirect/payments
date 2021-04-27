@@ -2,29 +2,31 @@
 
 > Made with create-react-library
 
-[![NPM](https://img.shields.io/npm/v/coindirect-package.svg)](https://www.npmjs.com/package/coindirect-package) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/coindirect-payments.svg)](https://www.npmjs.com/package/coindirect-payments) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-yarn add coindirect-package
+yarn add coindirect-payments
 ```
 
 or
 
 ```bash
-npm install --save coindirect-package
+npm install --save coindirect-payments
 ```
 
 ## Overview
 
 This library is used to create payment forms in React for Coindirect.
 
+Go the [Coindirect's Merchant Portal](https://merchants.coindirect.com/payments) for the admin functionality.
+
 ## Properties
 
-Each component has an optional `uuid` property.
+Each in addition to the properties below, each Component has an optional `uuid` property.
 
-If none is supplied, it will fetch it from (in order of precedence):
+If none is supplied, it will attempt to fetch it from (in order of precedence):
 
 - the url (like `?uuid={uuid}`)
 - the session storage.
@@ -77,12 +79,12 @@ Every class name is prefixed with `.cdp--`
 You can simply overwrite the styling by importing the same classnames in a css file after this line:
 
 ```
-import 'coindirect-package/src/index.css'
+import 'coindirect-payments/src/index.css'
 ```
 
 Or you could create your own theme.
 
-## Usage
+## Sample usage
 
 ````jsx
 import React, { Component } from 'react'
@@ -93,8 +95,8 @@ import {
   PaymentInProgess,
   PayinComplete,
   PayoutComplete
-} from 'coindirect-package'
-import 'coindirect-package/src/index.css'
+} from 'coindirect-payments'
+import 'coindirect-payments/src/index.css'
 import { Switch, Route } from 'react-router-dom'
 import { Redirect, withRouter } from 'react-router'
 import copy from './copy.svg'

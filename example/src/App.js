@@ -6,8 +6,8 @@ import {
   PaymentInProgess,
   PayinComplete,
   PayoutComplete
-} from 'coindirect-package'
-import 'coindirect-package/src/index.css'
+} from 'coindirect-payments'
+import 'coindirect-payments/src/index.css'
 import { Switch, Route } from 'react-router-dom'
 import { Redirect, withRouter } from 'react-router'
 import copy from './copy.svg'

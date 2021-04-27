@@ -1,10 +1,10 @@
 {
-  "name": "coindirect-package",
+  "name": "coindirect-payments",
   "version": "1.0.0",
   "description": "Made with create-react-library",
   "author": "aniagarwal97",
   "license": "MIT",
-  "repository": "aniagarwal97/coindirect-package",
+  "repository": "https://gitlab.com/node-space/external/pay-interface.git",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

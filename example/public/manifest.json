@@ -1,6 +1,6 @@
 {
-  "short_name": "coindirect-package",
-  "name": "coindirect-package",
+  "short_name": "coindirect-payments",
+  "name": "coindirect-payments",
   "icons": [
     {
       "src": "favicon.ico",
