@@ -283,7 +283,9 @@ class Payin extends Component {
             <React.Fragment>
               <div className='cdp--currency-wrapper'>
                 <span>
-                  {data.quote && data.quote.from} {t('Equivalent')}{' '}
+                  {t('Equivalent {{currencyCode}}', {
+                    currencyCode: data.quote.from
+                  })}
                 </span>
                 <span>{(data.quote && data.quote.amountDue) || 0}</span>
               </div>

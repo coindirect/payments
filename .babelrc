@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    ["i18next-extract", {"keySeparator":  null, "useI18nextDefaultValue": true}],
+    "@babel/plugin-syntax-jsx",
+    "@babel/plugin-syntax-class-properties"
+  ]
+}
