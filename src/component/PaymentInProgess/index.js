@@ -94,8 +94,8 @@ class PaymentInProgess extends Component {
             </span>
             <div className='cdp--ref'>
               <p>
-                {t('Reference ')}
-                <b>{walletData.reference}</b>
+                {t('Reference')}
+                <b> {walletData.reference}</b>
               </p>
             </div>
           </div>

@@ -87,7 +87,11 @@ class PayOutComplete extends Component {
             <p className='cdp--success-quote'>
               <b>{t('Success!')} </b>
               {result?.length > 0 &&
-                result.map((val) => t(`You have been paid out in `) + val.name)}
+                result.map((val) =>
+                  t('You have been paid out in {{currencyCode}}', {
+                    currencyCode: val.name
+                  })
+                )}
             </p>
             <div>
               <div className='cdp--payout-of-wrapper'>

@@ -200,8 +200,9 @@ class WalletAddress extends Component {
           <div className='cdp--scanner-container'>
             <div>
               <h1 className='cdp--page-heading'>
-                {t('Pay with')}{' '}
-                {(walletData.quote && walletData.quote.from) || ''}
+                {t('Pay with {{currencyCode}}', {
+                  currencyCode: walletData.quote?.from
+                })}
               </h1>
               <p>
                 {t(
@@ -214,21 +215,16 @@ class WalletAddress extends Component {
                   {(walletData.quote && walletData.quote.amountDue) || 0}
                 </span>
               </div>
-              <div>
-                <span>{t('Amount')}</span>
-                <span>
-                  {walletData?.quote?.amountDue || 0}
-                  {walletData?.quote?.from}
-                </span>
-              </div>
             </div>
+            <br />
             <div className='cdp--scanner-view'>
               {uri && <QRCode value={uri} />}
             </div>
             <p>
-              {t('Only send ') +
-                walletData?.quote?.from +
-                t(' to this address')}
+              {t('Only send {{currencyCode}} to this address', {
+                currencyCode: walletData?.quote?.from,
+                context: walletData?.quote?.from
+              })}
             </p>
             <div className='cdp--copy-button'>
               <span>

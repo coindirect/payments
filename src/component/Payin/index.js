@@ -235,11 +235,17 @@ class Payin extends Component {
             )}
             <div className='cdp--payin-heading-wrapper'>
               <h1 className='cdp--page-heading'>
-                {t('Pay with ') + selectedCurrency}
+                {t('Pay with {{currencyCode}}', {
+                  currencyCode: selectedCurrency
+                })}
               </h1>
               <p>
-                {displayName}{' '}
-                {t('offers fast and secure cryptocurrency payments.')}
+                {t(
+                  '{{merchantName}} offers fast and secure cryptocurrency payments.',
+                  {
+                    merchantName: displayName
+                  }
+                )}
               </p>
             </div>
             <div>
@@ -287,7 +293,7 @@ class Payin extends Component {
                     currencyCode: data.quote.from
                   })}
                 </span>
-                <span>{(data.quote && data.quote.amountDue) || 0}</span>
+                <span> {(data.quote && data.quote.amountDue) || 0}</span>
               </div>
               <div className='cdp--pay-time-wrapper'>
                 <span>{t('Quote expires in')}</span>
