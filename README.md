@@ -197,9 +197,5 @@ class App extends Component {
   }
 }
 
-export default withRouter(App)```
-
-## License
-
-MIT © [aniagarwal97](https://github.com/aniagarwal97)
+export default withRouter(App)
 ````
