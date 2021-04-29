@@ -2892,7 +2892,7 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
-"coindirect-payments@link:..":
+"@coindirect/payments@link:..":
   version "0.0.0"
   uid ""
 

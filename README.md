@@ -1,19 +1,19 @@
 # Coindirect Payments
 
-> Made with create-react-library
+> Coindirect Merchant React Payments SDK
 
-[![NPM](https://img.shields.io/npm/v/coindirect-payments.svg)](https://www.npmjs.com/package/coindirect-payments) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@coindirect/payments.svg)](https://www.npmjs.com/package/@coindirect/payments) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-yarn add coindirect-payments
+yarn add @coindirect/payments
 ```
 
 or
 
 ```bash
-npm install --save coindirect-payments
+npm install --save @coindirect/payments
 ```
 
 ## Overview
@@ -91,7 +91,7 @@ Every class name is prefixed with `.cdp--`
 You can simply overwrite the styling by importing the same classnames in a css file after this line:
 
 ```
-import 'coindirect-payments/src/index.css'
+import '@coindirect/payments/src/index.css'
 ```
 
 Or you could create your own theme.
@@ -107,8 +107,8 @@ import {
   PaymentInProgess,
   PayinComplete,
   PayoutComplete
-} from 'coindirect-payments'
-import 'coindirect-payments/src/index.css'
+} from '@coindirect/payments'
+import '@coindirect/payments/src/index.css'
 import { Switch, Route } from 'react-router-dom'
 import { Redirect, withRouter } from 'react-router'
 import copy from './copy.svg'
