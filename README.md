@@ -33,12 +33,16 @@ If none is supplied, it will attempt to fetch it from (in order of precedence):
 
 ### Payout
 
+Used to initiate pay-out.
+
 | Prop                 | Type       |
 | :------------------- | :--------- |
 | confirmPayoutSuccess | () => null |
 | confirmPayoutFailure | () => null |
 
 ### PayoutComplete
+
+On pay-out sucessfully completed.
 
 | Prop         | Type                    |
 | :----------- | :---------------------- |
@@ -47,12 +51,16 @@ If none is supplied, it will attempt to fetch it from (in order of precedence):
 
 ### Payin
 
+Used to initiate pay-in.
+
 | Prop         | Type                    |
 | :----------- | :---------------------- |
 | successPayin | (paymentStatus) => null |
 | failurePayin | () => null              |
 
 ### Address
+
+Used to display wallet details in the pay-in flow.
 
 | Prop          | Type                    |
 | :------------ | :---------------------- |
@@ -62,11 +70,15 @@ If none is supplied, it will attempt to fetch it from (in order of precedence):
 
 ### PaymentInProgess
 
+Used to display "in-progress" in the pay-in flow.
+
 | Prop          | Type                    |
 | :------------ | :---------------------- |
 | paymentStatus | (paymentStatus) => null |
 
 ### PayinComplete
+
+On pay-in sucessfully completed.
 
 | Prop          | Type                    |
 | :------------ | :---------------------- |
