@@ -1,10 +1,10 @@
 {
   "name": "@coindirect/payments",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Coindirect Merchant React Payments SDK",
-  "author": "aniagarwal97",
+  "author": "coindirect",
   "license": "MIT",
-  "repository": "https://gitlab.com/node-space/external/pay-interface.git",
+  "repository": "https://github.com/coindirect/payments.git",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
