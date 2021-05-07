@@ -1,0 +1,515 @@
+.cdp--nextbutton {
+  width: 100%;
+  background-color: #30e4f1;
+  border-radius: 100px;
+  padding: 10px 32px;
+  border: 1px solid #30e4f1;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cdp--backbutton {
+  width: 100%;
+  background-color: #0c0f3d;
+  border-radius: 100px;
+  padding: 10px 32px;
+  border: 1px solid #30e4f1;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.cdp--dropdown-container {
+  position: relative;
+  border: 1px solid rgb(228, 229, 232);
+  border-radius: 4px;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.cdp--dropdown-content {
+  display: none;
+  position: absolute;
+  top: 50px;
+  z-index: 1;
+  width: 100%;
+  background: white;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid rgb(228, 229, 232);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cdp--dropdown-content div {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.cdp--dropdown-content div:hover {
+  background-color: #0c0f3d;
+  color: white;
+  cursor: pointer;
+}
+
+/* Error */
+.cdp--error-panel-container {
+  border: 2px solid red;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 16px;
+  border-radius: 5px;
+  background-color: rgba(234, 66, 99, 0.25);
+}
+.cdp--error-image {
+  width: 28px;
+}
+.cdp--error-message-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.cdp--error {
+  font-size: 12px;
+  color: #ea4263;
+}
+.cdp--error-message {
+  font-size: 16px;
+  color: #ea4263;
+  width: 200px;
+}
+.cdp--error-message-close {
+  width: 18px;
+  text-align: right;
+  cursor: pointer;
+}
+
+.cdp--page-heading {
+  font-size: 21px;
+  margin-top: 35px;
+}
+.cdp--page-heading ~ p {
+  font-size: 16px;
+}
+
+.cdp--subheading {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #0c0f3d;
+}
+
+.cdp--payout-container {
+  margin-bottom: 2;
+}
+
+.cdp--payout-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cdp--payout-table-heading-row {
+  font-size: 19px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cdp--payout-heading {
+  padding: 10px 0;
+}
+
+.cdp--payout-value {
+  text-align: right;
+}
+
+.cdp--payout-table-data-row {
+  font-size: 15px;
+}
+
+.cdp--payout-fee-value {
+  text-align: right;
+  font-weight: 100;
+}
+
+.cdp--payout-receive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cdp--payout-receive {
+  font-size: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cdp--payout-receive-title {
+  padding: 10px 0;
+}
+
+.cdp--payout-receive-value {
+  text-align: right;
+}
+
+.cdp--payout-quote {
+  font-size: 15px;
+}
+
+.cdp--payout-quote-title {
+  padding: 10px 0;
+}
+
+.cdp--payout-quote-value {
+  text-align: right;
+  font-weight: 100;
+}
+
+.cdp--change-payout-currency {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #0c0f3d;
+  font-weight: 400;
+}
+
+.cdp--dropdown-container {
+}
+
+.cdp--overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 0;
+  z-index: 99;
+}
+
+.cdp--dropdown-container-state {
+  margin: 7px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.cdp--dropdown-box {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cdp--dropdown-arrow {
+  width: 15px;
+  padding-top: 3px;
+  padding-left: 5px;
+  border-left: 1px solid #cfcfcf;
+}
+
+.cdp--next-btn {
+  margin-bottom: 18px;
+}
+
+.cdp--retrieve-rates {
+  margin-bottom: 18px;
+}
+
+.cdp--retrieve-rates-text {
+  text-align: center;
+  font-size: 12px;
+  padding: 12px 20px;
+  background-color: #ea4263;
+  color: white;
+}
+
+.cdp--email-container {
+  margin-bottom: 2px;
+}
+
+.cdp--email {
+  text-align: center;
+  font-size: 11px;
+  color: #ea4263;
+}
+
+.cdp--logout {
+  text-align: center;
+  font-size: 9px;
+  color: #999;
+}
+.cdp--etc-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #eeeeee;
+  padding: 10px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+.cdp--etc-wrapper ~ div,
+.cdp--pay-time-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0px;
+  border-top: 1px solid #ddd;
+  margin-block-start: 20px;
+  margin-block-end: 20px;
+  font-size: 15px;
+}
+.cdp--scanner-container {
+  display: flex;
+  flex-direction: column;
+}
+.cdp--etc-wrapper ~ div span:last-child,
+.cdp--pay-time-wrapper span:last-child {
+  font-weight: 100;
+  color: #0c0f3dab;
+}
+.cdp--scanner-view {
+  margin: auto;
+}
+.cdp--scanner-view ~ p {
+  align-self: center;
+  font-size: 16px;
+}
+.cdp--copy-button {
+  border-radius: 30px;
+  border: 1px solid #cccc;
+  padding: 10px;
+  position: relative;
+  font-size: 12px;
+  color: black;
+  background-color: #e5e5e5;
+  padding: 12px;
+  overflow: hidden;
+}
+.cdp--copy-button button {
+  height: 100%;
+  outline: none;
+  background: #76e6f1;
+  border: none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  cursor: pointer;
+}
+.cdp--copy-button button img {
+  margin: 0px 8px 0px 5px;
+}
+.cdp--pay-time-wrapper ~ span,
+.cdp--confirmation {
+  text-align: center;
+  line-height: 21px;
+  font-size: 14px;
+  color: #a7a7a7;
+  display: flex;
+}
+.cdp--payment-of-wrapper,
+.cdp--currency-wrapper {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: bold;
+}
+.cdp--payment-of-wrapper p:last-child {
+  font-weight: 100;
+}
+
+/* Payin */
+.cdp--payin-container .cdp--dropdown-container {
+  border: 1px solid black;
+}
+.cdp--payin-container .cdp--pay-time-wrapper {
+  border: none;
+  margin: 0px;
+}
+.cdp--payin-heading-wrapper p {
+  color: #0c0f3d;
+}
+.cdp--payin-container .cdp--next-btn {
+  margin-top: 20px;
+}
+
+.cdp--fa {
+  padding: 0px 0px 0px 10px;
+  border-left: 1px solid #807d7d96;
+  font-size: 20px;
+}
+.cdp--payment-of-wrapper p {
+  margin-block-end: 0px;
+  margin-block-start: 0px;
+  font-size: 15px;
+}
+.cdp--currency-wrapper {
+  font-size: 19px;
+  padding: 15px 0px;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  margin-top: 1em;
+}
+.cdp--next-btn button:hover {
+  background-color: #0ca4af;
+  border-color: #0ca4af;
+}
+.cdp--success-quote {
+  font-size: 16px;
+}
+.cdp--payout-fee-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.cdp--payout-email-container {
+  display: grid;
+}
+.cdp--go-to-wallet-wrapper {
+  font-size: 15px;
+  width: fit-content;
+  margin: 15px auto 30px;
+}
+.cdp--payout-of-wrapper,
+.cdp--payout-equivalent-wrapper {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  align-items: center;
+  margin-top: 10px;
+}
+.cdp--payout,
+.cdp--amount {
+  font-size: 19px;
+}
+.cdp--payout-fee-wrapper span {
+  font-size: 16px;
+  margin-block-start: 1em;
+}
+.cdp--payout-equivalent-wrapper p {
+  font-size: 15px;
+}
+
+.cdp--great-qoute {
+  font-size: 16px;
+}
+.cdp--reference,
+.cdp--total-amount {
+  display: flex;
+  justify-content: space-between;
+  font-size: 19px;
+}
+.cdp--reference {
+  border-bottom: 1px solid #e5e5e5;
+}
+.cdp--total-amount :first-child {
+  font-weight: 500;
+  font-size: 15px;
+}
+.cdp--total-amount :last-child {
+  font-size: 15px;
+}
+.cdp--total-payment,
+.cdp--fee,
+.cdp--total-cost {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e4e4e494;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cdp--total-paid {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e4e4e494;
+  font-size: 14px;
+}
+.cdp--fee {
+  font-weight: normal;
+  border-bottom: 1px solid #ccc;
+}
+.cdp--total-cost {
+  font-size: 18px;
+  border: none;
+}
+.cdp--payment-done-container h1 {
+  font-size: 21px;
+}
+
+.cdp--wallet-input {
+  padding: 0px;
+  width: 309px;
+  height: 36px;
+  border-radius: 4px;
+  border: 1px solid #e4e5e8;
+  color: #0c0f3d;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.cdp--wallet-input:focus,
+.cdp--wallet-input:active {
+  border: 1px solid #e4e5e8;
+}
+
+.cdp--nextbutton:disabled {
+  background-color: #30e4f13d;
+}
+.cdp--ref {
+  font-size: 10px;
+  text-align: center;
+}
+
+/* Loader */
+.cdp--loader-content {
+  position: relative;
+  height: 100px;
+  width: 100%;
+}
+.cdp--loader-line-mask {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 25px;
+  height: 50px;
+  margin-left: -25px;
+  margin-top: -25px;
+  overflow: hidden;
+  -webkit-transform-origin: 25px 25px;
+  -moz-transform-origin: 25px 25px;
+  -ms-transform-origin: 25px 25px;
+  -o-transform-origin: 25px 25px;
+  transform-origin: 25px 25px;
+  -webkit-mask-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  opacity: 1;
+}
+.cdp--loader-line-mask .cdp--loader-line {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.cdp--loader-line-mask.one {
+  -webkit-animation: rotate 1s infinite linear;
+  -moz-animation: rotate 1s infinite linear;
+  -o-animation: rotate 1s infinite linear;
+  animation: rotate 1s infinite linear;
+}
+.cdp--loader-line-mask.cdp--one .cdp--loader-line {
+  box-shadow: inset 0 0 0 8px #30e4f199;
+}
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
