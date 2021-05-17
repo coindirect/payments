@@ -55,20 +55,23 @@ class PayOut extends Component {
   getStatus = (uuid) => {
     Api.status(uuid)
       .then((status) => {
-        this.setState(
-          {
-            selectedCurrency: this.state.payoutCurrency?.filter(
-              (item) => item?.code === status?.data?.quote?.from
-            )[0].name,
-            selectedCurrencyCode: status?.data?.quote?.from
-          },
-          () => {
-            this.updateCurrency(
-              this.state.selectedCurrencyCode,
-              this.state.selectedCurrency
-            )
-          }
-        )
+        const selectedCurrency = this.state.payoutCurrency?.filter(
+          (item) => item?.code === status?.data?.quote?.from
+        )[0]?.name
+        if (selectedCurrency) {
+          this.setState(
+            {
+              selectedCurrency,
+              selectedCurrencyCode: status?.data?.quote?.from
+            },
+            () => {
+              this.updateCurrency(
+                this.state.selectedCurrencyCode,
+                this.state.selectedCurrency
+              )
+            }
+          )
+        }
       })
       .catch((error) => {
         console.log('error', error)

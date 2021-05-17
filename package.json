@@ -1,6 +1,6 @@
 {
   "name": "@coindirect/payments",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Coindirect Merchant React Payments SDK",
   "author": "aniagarwal97",
   "license": "MIT",
