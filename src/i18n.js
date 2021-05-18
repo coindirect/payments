@@ -13,7 +13,7 @@ const resources = {
   fr: {
     translation: frenchTranslation
   },
-  kr: {
+  ko: {
     translation: koreanTranslation
   }
 }
@@ -22,6 +22,8 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
+    browserLanguageDetection: true,
+    lng: navigator.language,
     fallbackLng: 'en',
 
     keySeparator: false, // we do not use keys in form messages.welcome

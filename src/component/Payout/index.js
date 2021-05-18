@@ -58,11 +58,14 @@ class PayOut extends Component {
         const selectedCurrency = this.state.payoutCurrency?.filter(
           (item) => item?.code === status?.data?.quote?.from
         )[0]?.name
+
         if (selectedCurrency) {
           this.setState(
             {
               selectedCurrency,
-              selectedCurrencyCode: status?.data?.quote?.from
+              selectedCurrencyCode: selectedCurrency
+                ? status?.data?.quote?.from
+                : this.state.selectedCurrencyCode
             },
             () => {
               this.updateCurrency(
@@ -70,6 +73,13 @@ class PayOut extends Component {
                 this.state.selectedCurrency
               )
             }
+          )
+        } else {
+          // if the current currency cannot be paid out, stay with the current payout currency > but triggers "updateCurrency" which
+          // will get the latest supported currency payout values
+          this.updateCurrency(
+            this.state.selectedCurrencyCode,
+            this.state.selectedCurrency
           )
         }
       })
@@ -102,7 +112,6 @@ class PayOut extends Component {
       const data = {}
       data.currency = code
       data.payOutMethod = 'crypto'
-
       if (this.state.walletAddress && this.state.walletAddress.length > 0) {
         data.payOutInstruction = {
           code: 'crypto',
