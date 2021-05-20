@@ -48,7 +48,7 @@ class Payin extends Component {
         this.getStatus(this.uuid)
       })
       .catch((error) => {
-        console.log('errorXX', error)
+        console.log('error', error)
         this.setState({
           isError: true
         })
@@ -58,7 +58,6 @@ class Payin extends Component {
   getStatus = (uuid) => {
     Api.status(uuid)
       .then((status) => {
-        console.log(this.state.payoutCurrency, status?.data?.quote)
         this.setState(
           {
             data: status.data,
