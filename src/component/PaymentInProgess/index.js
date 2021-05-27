@@ -25,7 +25,7 @@ class PaymentInProgess extends Component {
   }
 
   getStatus = (uuid) => {
-    Api.status(uuid)
+    Api.status(uuid, this.props.apiUrl)
       .then((response) => {
         this.setState({
           walletData: response.data

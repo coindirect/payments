@@ -35,7 +35,7 @@ class PayOut extends Component {
   componentDidMount() {
     if (!this.uuid) return
 
-    Api.getCurrencies()
+    Api.getCurrencies(this.props.apiUrl)
       .then((response) => {
         this.setState({
           payoutCurrency: response.data,
@@ -53,7 +53,7 @@ class PayOut extends Component {
   }
 
   getStatus = (uuid) => {
-    Api.status(uuid)
+    Api.status(uuid, this.props.apiUrl)
       .then((status) => {
         const selectedCurrency = this.state.payoutCurrency?.filter(
           (item) => item?.code === status?.data?.quote?.from
@@ -122,7 +122,7 @@ class PayOut extends Component {
         data.payOutInstruction = null
       }
 
-      Api.updateCurrency(data, this.uuid)
+      Api.updateCurrency(data, this.uuid, this.props.apiUrl)
         .then((response) => {
           this.setState({
             data: response.data,
@@ -145,10 +145,10 @@ class PayOut extends Component {
               error.response && error.response.status > 400
                 ? error.response && error.response.data
                 : error.response.data.errorList
-                ? error.response.data.errorList &&
+                  ? error.response.data.errorList &&
                   error.response.data.errorList.length &&
                   error.response.data.errorList[0].message
-                : this.props.t('Something went wrong')
+                  : this.props.t('Something went wrong')
           })
         })
     })
@@ -164,7 +164,7 @@ class PayOut extends Component {
         const uuid =
           new URLSearchParams(window.location.search).get('uuid') ||
           window.sessionStorage.getItem('uuid')
-        Api.Accept(uuid)
+        Api.accept(uuid, this.props.apiUrl)
           .then(() => {
             this.props.confirmPayoutSuccess()
           })
@@ -190,7 +190,7 @@ class PayOut extends Component {
     this.setState({
       walletAddress: event.target.value
     })
-    Api.validate(data)
+    Api.validate(data, this.props.apiUrl)
       .then((response) => {
         this.setState({ validAddress: true }, () => {
           this.updateCurrency(
@@ -343,26 +343,26 @@ class PayOut extends Component {
                     display: openDropdown
                       ? 'block'
                       : openDropdown
-                      ? 'none'
-                      : 'none'
+                        ? 'none'
+                        : 'none'
                   }}
                 >
                   {payoutCurrency && payoutCurrency.length
                     ? payoutCurrency
-                        .filter((item) => item.code !== data.currency)
-                        .map((value) => {
-                          return (
-                            <div
-                              onClick={() => {
-                                this.updateCurr(value.code, value.name)
-                              }}
-                              key={value.id}
-                            >
-                              {' '}
-                              {value.name}
-                            </div>
-                          )
-                        })
+                      .filter((item) => item.code !== data.currency)
+                      .map((value) => {
+                        return (
+                          <div
+                            onClick={() => {
+                              this.updateCurr(value.code, value.name)
+                            }}
+                            key={value.id}
+                          >
+                            {' '}
+                            {value.name}
+                          </div>
+                        )
+                      })
                     : null}
                 </div>
               </div>

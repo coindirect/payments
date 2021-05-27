@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next'
 import Loader from '../Loader'
 import ErrorMessage from '../ErrorMessage'
 import { getUuid } from '../../utils/uuid'
+import { WALLET_URL } from '../../Constants'
 
 class PayOutComplete extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class PayOutComplete extends Component {
     const data = {}
     data.successUrl = 'no_url'
 
-    Api.getCurrencies()
+    Api.getCurrencies(this.props.apiUrl)
       .then((response) => {
         this.setState({
           payoutCurrencyData: response.data,
@@ -41,7 +42,7 @@ class PayOutComplete extends Component {
   }
 
   getStatus = (uuid) => {
-    Api.status(uuid)
+    Api.status(uuid, this.props.apiUrl)
       .then((response) => {
         this.setState({
           confirmPayoutData: response.data,
@@ -110,10 +111,9 @@ class PayOutComplete extends Component {
               <div className='cdp--payout-fee-wrapper'>
                 <span>{t('Fee')}</span>
                 <span>
-                  {`${(confirmPayoutData && confirmPayoutData.fee) || 0} ${
-                    (confirmPayoutData.quote && confirmPayoutData.quote.from) ||
+                  {`${(confirmPayoutData && confirmPayoutData.fee) || 0} ${(confirmPayoutData.quote && confirmPayoutData.quote.from) ||
                     ''
-                  }`}
+                    }`}
                 </span>
               </div>
               <div className='cdp--payout-equivalent-wrapper'>
@@ -125,21 +125,19 @@ class PayOutComplete extends Component {
                 </p>
                 <p>
                   <strong>
-                    {`${
-                      (confirmPayoutData &&
-                        confirmPayoutData.quote &&
-                        confirmPayoutData.quote.amountInGross) ||
+                    {`${(confirmPayoutData &&
+                      confirmPayoutData.quote &&
+                      confirmPayoutData.quote.amountInGross) ||
                       0
-                    } ${
-                      (confirmPayoutData.quote &&
+                      } ${(confirmPayoutData.quote &&
                         confirmPayoutData.quote.from) ||
                       ''
-                    }`}
+                      }`}
                   </strong>
                 </p>
               </div>
               <div className='cdp--go-to-wallet-wrapper'>
-                <a href='https://www.sandbox.coindirect.com/wallets/btc'>
+                <a href={props.walletUrl || WALLET_URL}>
                   <span>
                     <strong>{t('Go To Wallet')}</strong>
                   </span>

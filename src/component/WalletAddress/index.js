@@ -29,14 +29,14 @@ class WalletAddress extends Component {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(
         this.state.walletData.quote &&
-          this.state.walletData.quote.payInInstruction.displayParameters.address
+        this.state.walletData.quote.payInInstruction.displayParameters.address
       )
     }
   }
 
   getStatus = (uuid) => {
     if (!this.state.isLoading || this.state.walletData) {
-      Api.status(uuid)
+      Api.status(uuid, this.props.apiUrl)
         .then((response) => {
           this.setState({
             walletData: response.data,
@@ -66,7 +66,7 @@ class WalletAddress extends Component {
   componentDidMount() {
     if (!this.uuid) return
 
-    Api.getCurrencies()
+    Api.getCurrencies(this.props.apiUrl)
       .then((response) => {
         if (!this.state.currencies.length) {
           this.setState({

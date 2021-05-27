@@ -18,7 +18,7 @@ class PayinComplete extends Component {
     if (!this.uuid) return
 
     if (!this.state.paymentInfo) {
-      Api.status(this.uuid)
+      Api.status(this.uuid, this.props.apiUrl)
         .then((response) => {
           this.setState({
             paymentInfo: response.data
