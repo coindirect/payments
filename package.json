@@ -1,6 +1,6 @@
 {
   "name": "@coindirect/payments",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Coindirect Merchant React Payments SDK",
   "author": "aniagarwal97",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": ">16.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
