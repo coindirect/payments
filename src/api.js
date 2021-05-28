@@ -4,9 +4,7 @@ import { API_BASE_URL } from './Constants'
 const Api = {}
 
 Api.getCurrencies = (apiBaseUrl = API_BASE_URL) => {
-  return axios.get(
-    `${apiBaseUrl}/currency/crypto?max=1000&sort=rank&order=asc`
-  )
+  return axios.get(`${apiBaseUrl}/currency/crypto?max=1000&sort=rank&order=asc`)
 }
 Api.status = (uuid, apiBaseUrl = API_BASE_URL) => {
   return axios.get(`${apiBaseUrl}/v1/pay/${uuid}`)

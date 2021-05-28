@@ -29,7 +29,7 @@ class WalletAddress extends Component {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(
         this.state.walletData.quote &&
-        this.state.walletData.quote.payInInstruction.displayParameters.address
+          this.state.walletData.quote.payInInstruction.displayParameters.address
       )
     }
   }

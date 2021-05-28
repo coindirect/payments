@@ -64,7 +64,7 @@ class PayOutComplete extends Component {
       confirmPayoutData,
       isLoading
     } = this.state
-    const { t } = this.props
+    const { t, walletUrl } = this.props
 
     if (!this.uuid) {
       return <ErrorMessage message={t('Something went wrong')} />
@@ -111,9 +111,10 @@ class PayOutComplete extends Component {
               <div className='cdp--payout-fee-wrapper'>
                 <span>{t('Fee')}</span>
                 <span>
-                  {`${(confirmPayoutData && confirmPayoutData.fee) || 0} ${(confirmPayoutData.quote && confirmPayoutData.quote.from) ||
+                  {`${(confirmPayoutData && confirmPayoutData.fee) || 0} ${
+                    (confirmPayoutData.quote && confirmPayoutData.quote.from) ||
                     ''
-                    }`}
+                  }`}
                 </span>
               </div>
               <div className='cdp--payout-equivalent-wrapper'>
@@ -125,19 +126,21 @@ class PayOutComplete extends Component {
                 </p>
                 <p>
                   <strong>
-                    {`${(confirmPayoutData &&
-                      confirmPayoutData.quote &&
-                      confirmPayoutData.quote.amountInGross) ||
+                    {`${
+                      (confirmPayoutData &&
+                        confirmPayoutData.quote &&
+                        confirmPayoutData.quote.amountInGross) ||
                       0
-                      } ${(confirmPayoutData.quote &&
+                    } ${
+                      (confirmPayoutData.quote &&
                         confirmPayoutData.quote.from) ||
                       ''
-                      }`}
+                    }`}
                   </strong>
                 </p>
               </div>
               <div className='cdp--go-to-wallet-wrapper'>
-                <a href={props.walletUrl || WALLET_URL}>
+                <a href={walletUrl || WALLET_URL}>
                   <span>
                     <strong>{t('Go To Wallet')}</strong>
                   </span>

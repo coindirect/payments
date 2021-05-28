@@ -262,18 +262,18 @@ class Payin extends Component {
                 >
                   {payoutCurrency && payoutCurrency.length
                     ? payoutCurrency.map((value, index) => {
-                      return (
-                        <div
-                          onClick={() => {
-                            this.updateCurrency(value.code, value.name)
-                          }}
-                          key={value.id}
-                        >
-                          {' '}
-                          {value.name}
-                        </div>
-                      )
-                    })
+                        return (
+                          <div
+                            onClick={() => {
+                              this.updateCurrency(value.code, value.name)
+                            }}
+                            key={value.id}
+                          >
+                            {' '}
+                            {value.name}
+                          </div>
+                        )
+                      })
                     : null}
                 </div>
               </div>

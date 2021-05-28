@@ -145,10 +145,10 @@ class PayOut extends Component {
               error.response && error.response.status > 400
                 ? error.response && error.response.data
                 : error.response.data.errorList
-                  ? error.response.data.errorList &&
+                ? error.response.data.errorList &&
                   error.response.data.errorList.length &&
                   error.response.data.errorList[0].message
-                  : this.props.t('Something went wrong')
+                : this.props.t('Something went wrong')
           })
         })
     })
@@ -343,26 +343,26 @@ class PayOut extends Component {
                     display: openDropdown
                       ? 'block'
                       : openDropdown
-                        ? 'none'
-                        : 'none'
+                      ? 'none'
+                      : 'none'
                   }}
                 >
                   {payoutCurrency && payoutCurrency.length
                     ? payoutCurrency
-                      .filter((item) => item.code !== data.currency)
-                      .map((value) => {
-                        return (
-                          <div
-                            onClick={() => {
-                              this.updateCurr(value.code, value.name)
-                            }}
-                            key={value.id}
-                          >
-                            {' '}
-                            {value.name}
-                          </div>
-                        )
-                      })
+                        .filter((item) => item.code !== data.currency)
+                        .map((value) => {
+                          return (
+                            <div
+                              onClick={() => {
+                                this.updateCurr(value.code, value.name)
+                              }}
+                              key={value.id}
+                            >
+                              {' '}
+                              {value.name}
+                            </div>
+                          )
+                        })
                     : null}
                 </div>
               </div>
