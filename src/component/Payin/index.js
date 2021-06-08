@@ -34,7 +34,7 @@ class Payin extends Component {
   componentDidMount() {
     if (!this.uuid) return
 
-    Api.getCurrencies()
+    Api.getCurrencies(this.props.apiUrl)
       .then((response) => {
         const currencies = []
         Object.keys(response.data).forEach((v, i) => {
@@ -56,7 +56,7 @@ class Payin extends Component {
   }
 
   getStatus = (uuid) => {
-    Api.status(uuid)
+    Api.status(uuid, this.props.apiUrl)
       .then((status) => {
         this.setState(
           {
@@ -96,7 +96,7 @@ class Payin extends Component {
   }
 
   merchant = (id) => {
-    Api.merchantInfo(id)
+    Api.merchantInfo(id, this.props.apiUrl)
       .then((response) => {
         this.setState({
           displayName: response.data.displayName,
@@ -119,7 +119,7 @@ class Payin extends Component {
       window.sessionStorage.getItem('uuid') ||
       ''
     this.setState({ isUpdating: true }, () => {
-      Api.updateCurrency(data, uuid)
+      Api.updateCurrency(data, uuid, this.props.apiUrl)
         .then((response) => {
           this.setState({
             data: response.data,
@@ -157,7 +157,7 @@ class Payin extends Component {
     const uuid =
       new URLSearchParams(window.location.search).get('uuid') ||
       window.sessionStorage.getItem('uuid')
-    Api.Accept(uuid)
+    Api.accept(uuid, this.props.apiUrl)
       .then((response) => {
         this.props.successPayin(response.data.status)
       })
