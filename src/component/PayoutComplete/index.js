@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next'
 import Loader from '../Loader'
 import ErrorMessage from '../ErrorMessage'
 import { getUuid } from '../../utils/uuid'
+import { WALLET_URL } from '../../Constants'
 
 class PayOutComplete extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class PayOutComplete extends Component {
     const data = {}
     data.successUrl = 'no_url'
 
-    Api.getCurrencies()
+    Api.getCurrencies(this.props.apiUrl)
       .then((response) => {
         this.setState({
           payoutCurrencyData: response.data,
@@ -41,7 +42,7 @@ class PayOutComplete extends Component {
   }
 
   getStatus = (uuid) => {
-    Api.status(uuid)
+    Api.status(uuid, this.props.apiUrl)
       .then((response) => {
         this.setState({
           confirmPayoutData: response.data,
@@ -63,7 +64,7 @@ class PayOutComplete extends Component {
       confirmPayoutData,
       isLoading
     } = this.state
-    const { t } = this.props
+    const { t, walletUrl } = this.props
 
     if (!this.uuid) {
       return <ErrorMessage message={t('Something went wrong')} />
@@ -139,7 +140,7 @@ class PayOutComplete extends Component {
                 </p>
               </div>
               <div className='cdp--go-to-wallet-wrapper'>
-                <a href='https://www.sandbox.coindirect.com/wallets/btc'>
+                <a href={walletUrl || WALLET_URL}>
                   <span>
                     <strong>{t('Go To Wallet')}</strong>
                   </span>
