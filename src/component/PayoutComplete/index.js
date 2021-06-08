@@ -139,13 +139,20 @@ class PayOutComplete extends Component {
                   </strong>
                 </p>
               </div>
-              <div className='cdp--go-to-wallet-wrapper'>
-                <a href={walletUrl || WALLET_URL}>
-                  <span>
-                    <strong>{t('Go To Wallet')}</strong>
-                  </span>
-                </a>
-              </div>
+              {confirmPayoutData.returnUrl &&
+              confirmPayoutData.returnUrl.length > 0 ? (
+                <div className='cdp--go-to-wallet-wrapper'>
+                  <center>
+                    <br />
+                    <a
+                      href={confirmPayoutData.returnUrl}
+                      className='cdp--backbutton'
+                    >
+                      {t('Back to Merchant')}
+                    </a>
+                  </center>
+                </div>
+              ) : null}
             </div>
             <div
               style={{ display: isError ? 'block' : 'none' }}
